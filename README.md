@@ -49,7 +49,7 @@ For instance, add the following lines to the file ```project/plugins.sbt``` in y
 ```sbt
 resolvers += Resolver.bintrayIvyRepo("mkroli", "sbt-plugins")
 
-addSbtPlugin("com.github.mkroli" % "sbt-i18n" % "0.1")
+addSbtPlugin("com.github.mkroli" % "sbt-i18n" % "0.2")
 ```
 
 ### Settings / Tasks
