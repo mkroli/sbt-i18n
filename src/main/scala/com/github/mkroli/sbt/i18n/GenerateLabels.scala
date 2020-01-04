@@ -44,7 +44,11 @@ object GenerateLabels {
       in.collect {
         case in if !in.getName.contains("_") => {
           val out = mappings(in)
-          val pkg = out.relativeTo((target in internationalisationGenerate).value).get.getParent.replace(java.io.File.separatorChar, '.')
+          val pkg = out
+            .relativeTo((target in internationalisationGenerate).value)
+            .flatMap(f => Option(f.getParent))
+            .map(_.replace(java.io.File.separatorChar, '.'))
+            .getOrElse("labels")
           val cls = out.getName.dropRight(".scala".size)
           log.info(s"Generating ${out}")
           val keys = loadPropertyKeys(in)
