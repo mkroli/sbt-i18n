@@ -1,0 +1,18 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: "Build"
+    image: hseeberger/scala-sbt:11.0.4_1.3.2_2.13.1
+    user: sbtuser
+    commands:
+      - sbt -Dsbt.color=true -Dsbt.supershell=false clean "^package" "^test"
+    depends_on: [ clone ]
+  - name: "Code format"
+    image: hseeberger/scala-sbt:11.0.4_1.3.2_2.13.1
+    user: sbtuser
+    commands:
+      - sbt -Dsbt.color=true -Dsbt.supershell=false clean scalafmtSbtCheck scalafmtCheckAll
+    depends_on: [ clone ]
